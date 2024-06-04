@@ -1,0 +1,2 @@
+public class GoodsMain {
+}

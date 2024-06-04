@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/project_1/project_1.iml" filepath="$PROJECT_DIR$/project_1/project_1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_1/step_1.iml" filepath="$PROJECT_DIR$/step_1/step_1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_2/step_2.iml" filepath="$PROJECT_DIR$/step_2/step_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_3/step_3.iml" filepath="$PROJECT_DIR$/step_3/step_3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_4/step_4.iml" filepath="$PROJECT_DIR$/step_4/step_4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_5/step_5.iml" filepath="$PROJECT_DIR$/step_5/step_5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_6/step_6.iml" filepath="$PROJECT_DIR$/step_6/step_6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_7/step_7.iml" filepath="$PROJECT_DIR$/step_7/step_7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_8/step_8.iml" filepath="$PROJECT_DIR$/step_8/step_8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step_6/test/test.iml" filepath="$PROJECT_DIR$/step_6/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test_1.iml" filepath="$PROJECT_DIR$/test_1.iml" />
+    </modules>
+  </component>
+</project>
