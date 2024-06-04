@@ -1,3 +1,5 @@
+//1.在java项目中.先判断格式是否准确，在判断是否重复
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,26 +13,36 @@ public class Main {
         user:while (true)
         {
             System.out.println("请选择操作1登录 2注册 3忘记密码,4退出应用");
-            int choose=sc.nextInt();
+            String choose=sc.next();
             switch (choose){
-                case 1->{
+                case "1"->{
                     if(Login(u_list)){
-                        Manager(list);
+                        StudentSystem ss=new StudentSystem();
+                        StudentSystem.Entre();
+                        //Manager(list);
                     }
                 }
-                case 2->{
+                case "2"->{
                     Register(u_list);
                 }
-                case 3->{
+                case "3"->{
                     Forgot(u_list);
             }
-                case 4->{
+                case "4"->{
                     break user;
             }
                 default -> {
                     System.out.println("输入无效，请重新输入！");
                 }
         }
+        }
+        ShowUser(u_list);
+    }
+    public static void ShowUser(ArrayList<user>list){
+        for (int i = 0; i < list.size(); i++) {
+            user u=list.get(i);
+            System.out.printf("%s\t%s\t%s\t%s",u.getUserName(),u.getPassword(),u.getCardId(),u.getPhoneNumber());
+            System.out.println();
         }
     }
     public static void Forgot(ArrayList<user> list){
@@ -48,7 +60,7 @@ public class Main {
             System.out.println("请输入账号绑定的手机号：");
             String number=sc.next();
             user u1=list.get(i);
-            if(u1.getCardId().equals(ID)&&u1.getPhoneNumber().equals(number)){
+            if(u1.getCardId().equalsIgnoreCase(ID)&&u1.getPhoneNumber().equals(number)){
                 System.out.print("验证成功！");
                 SetPassword(sc,u1);
                 System.out.println("密码修改成功！");
@@ -65,9 +77,7 @@ public class Main {
 
         SetName(list, sc, u1);
         SetPassword(sc, u1);
-
         SetID(sc, u1);
-
         SetNumber(sc, u1);
 
         list.add(u1);
@@ -145,7 +155,6 @@ public class Main {
         }
         u1.setCardId(ID);
     }
-
     public static void SetPassword(Scanner sc, user u1) {
         System.out.println("请输入密码：");
         while(true){
@@ -166,30 +175,44 @@ public class Main {
         System.out.println("请输入用户名：");
         String name= sc.next();
         while(true){
-            if(CheckUserName(list,name)>=0){
-                System.out.println("用户名已存在！请重新输入：");
-                name= sc.next();
-                continue;
-            }
-            if (name.length()<3||name.length()>15) {
+            int length=name.length();
+            if (length<3||length>15) {
                 System.out.println("用户名长度错误！请重新输入：");
                 name= sc.next();
                 continue;
             }
             boolean flag=false;
+            int cnt=0;
             for(int i=0;i<name.length();i++){
-                if(name.charAt(i)<'0'||name.charAt(i)>'9'){
+                char c=name.charAt(i);
+                if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9'))){
                     flag=true;
                     break;
                 }
+                if(((c>='a'&&c<='z')||(c>='A'&&c<='Z'))){
+                    cnt+=1;
+                    break;
+                }
+
             }
-            if(!flag){
-                System.out.println("用户名不能为纯数字！请重新输入：");
+            if(flag){
+                System.out.println("用户名只能是数字和字母的组合！请重新输入：");
+                name= sc.next();
+                continue;
+            }
+            if(cnt==0){
+                System.out.println("用户名不能是纯数字！请重新输入：");
+                name=sc.next();
+                continue;
+            }
+            if(CheckUserName(list,name)>=0){
+                System.out.println("用户名已存在！请重新输入：");
                 name= sc.next();
                 continue;
             }
             break;
         }
+
         u1.setUserName(name);
     }
 
@@ -216,7 +239,7 @@ public class Main {
             System.out.println(s1);
             s2=sc.next();
         }
-        for(int i=0;i<3;i++){
+        for(int i=0;i<2;i++){
             if(!list.get(name_index).getPassword().equals(password)){
                 System.out.printf("密码输入错误，您还有%s次机会",2-i);
                 System.out.println();
@@ -224,26 +247,39 @@ public class Main {
                 password=sc.next();
             }
             else{
-                System.out.println("登录成功！");
+                System.out.println("登录成功！可以使用系统了");
                 System.out.println();
                 return true;
             }
         }
+        System.out.println("登陆失败！2");
         return false;
 
 
     }
     public static String Captcha(){
         Random r=new Random();
-        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        ArrayList<Character> list=new ArrayList<>();
+        for(int i=0;i<26;i++){
+            list.add((char)(i+'a'));
+            list.add((char)(i+'A'));
+        }
         StringBuilder sb=new StringBuilder();
         for(int i=0;i<4;i++){
-            int number=r.nextInt(52);
-            sb.append(str.charAt(number));
+            int number=r.nextInt(list.size());
+            sb.append(list.get(number));
         }
         int number=r.nextInt(10);
         sb.append(number);
-        return sb.toString();
+        //如果我们要修改字符串中的内容，先把字符串变成字符数组
+        //在数组中修改，然后再创建一个新的字符串
+        char []arr=sb.toString().toCharArray();
+        //拿随机索引与最后一个索引交换
+        int randomIndex=r.nextInt(arr.length);
+        char temp=arr[randomIndex];
+        arr[randomIndex]=arr[arr.length-1];
+        arr[arr.length-1]=temp;
+        return new String(arr);
     }
     public static int CheckUserName(ArrayList<user>list, String Name){
         for (int i = 0; i < list.size(); i++) {
@@ -266,25 +302,25 @@ public class Main {
             System.out.println("5：退出");
             System.out.println("6：遍历学生列表");
             System.out.println("请输入你的选择：");
-            int n=sc.nextInt();
+            String n=sc.next();
             switch (n){
-                case 1->{
+                case "1"->{
                     Add(list);
                 }
-                case 2->{
+                case "2"->{
                     Delete(list);
                 }
-                case 3->{
+                case "3"->{
                     Alter(list);
                 }
-                case 4->{
+                case "4"->{
                     Check(list);
                 }
-                case 5->{
+                case "5"->{
                     break loop;//loop是while循环别名，这里意为跳出loop循环
                     //System.exit(0);//也可以用这个语句，关闭虚拟机
                 }
-                case 6->{
+                case "6"->{
                     Show(list);
                 }
                 default -> {
