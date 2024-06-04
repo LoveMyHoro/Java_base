@@ -7,7 +7,7 @@ public class Main {
         boolean flag=true;
         Scanner sc=new Scanner(System.in);
         ArrayList<stu>list=new ArrayList<>();
-        while(flag){
+        loop:while(true){
             System.out.println("1：添加学生");
             System.out.println("2：删除学生");
             System.out.println("3：修改学生");
@@ -21,38 +21,17 @@ public class Main {
                     Add(list);
                 }
                 case 2->{
-                    System.out.println("请输入要删除的id:");
-                    String id=sc.next();
-                    if(Check(list,id)){
-                        list=Delete(list,id);
-                    }
-                    else {
-                        System.out.println("id不存在！退出操作");
-                    }
+                    Delete(list);
                 }
                 case 3->{
-                    System.out.println("请输入要修改的id:");
-                    String id=sc.next();
-                    if(Check(list,id)){
-                        list=Alter(list,id);
-                    }
-                    else {
-                        System.out.println("id不存在！退出操作");
-                    }
+                    Alter(list);
                 }
                 case 4->{
-                    System.out.println("请输入要查询的id:");
-                    String id=sc.next();
-                    if(Check(list,id)){
-                        int i=Find(list,id);
-                        stu s1=list.get(i);
-                        System.out.printf("%s\t%s\t%s\t%s",s1.getId(),s1.getName(),s1.getAge(),s1.getAddress());
-                        System.out.println();
-                    }
-
+                    Check(list);
                 }
                 case 5->{
-                    flag=false;
+                    break loop;//loop是while循环别名，这里意为跳出loop循环
+                    //System.exit(0);//也可以用这个语句，关闭虚拟机
                 }
                 case 6->{
                     Show(list);
@@ -85,6 +64,7 @@ public class Main {
         String address=sc.next();
         s1.setAddress(address);
         list.add(s1);
+        System.out.println("添加成功！");
     }
     public static void Show(ArrayList<stu> list){
         System.out.println("Id    "+"Name    "+"Age    "+"Address    ");
@@ -104,18 +84,26 @@ public class Main {
         }
         return -1;
     }
-    public static ArrayList<stu> Delete(ArrayList<stu> list,String id){
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getId().equals(id)){
-                list.remove(i);
-                System.out.println("删除成功！");
-                break;
-            }
-        }
-        return list;
-    }
-    public static ArrayList<stu> Alter(ArrayList<stu> list,String id){
+    public static void Delete(ArrayList<stu> list){
         Scanner sc=new Scanner(System.in);
+        System.out.println("请输入要删除的id:");
+        String id=sc.next();
+        if(!Check(list,id)){
+            System.out.println("id不存在！退出操作");
+            return;
+        }
+        int i=Find(list,id);
+        list.remove(i);
+        System.out.println("删除成功！");
+    }
+    public static void Alter(ArrayList<stu> list){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("请输入要修改的id:");
+        String id=sc.next();
+        if(!Check(list,id)){
+            System.out.println("id不存在！退出操作");
+            return;
+        }
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i).getId().equals(id)){
                 stu s1=list.get(i);
@@ -162,6 +150,18 @@ public class Main {
             }
         }
 
-        return list;
+    }
+    public static void Check(ArrayList<stu>list){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("请输入要查询的id:");
+        String id=sc.next();
+        if(Check(list,id)){
+            int i=Find(list,id);
+            stu s1=list.get(i);
+            System.out.println("Id    "+"Name    "+"Age    "+"Address    ");
+            System.out.printf("%s\t%s\t%s\t%s",s1.getId(),s1.getName(),s1.getAge(),s1.getAddress());
+            System.out.println();
+        }
+        System.out.println("查询成功！");
     }
 }
