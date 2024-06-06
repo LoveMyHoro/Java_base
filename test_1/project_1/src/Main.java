@@ -18,7 +18,11 @@ public class Main {
                 case "1"->{
                     if(Login(u_list)){
                         StudentSystem ss=new StudentSystem();
+<<<<<<< HEAD
                         StudentSystem.Entre();
+=======
+                        ss.Entre();
+>>>>>>> origin/master
                         //Manager(list);
                     }
                 }
