@@ -2,7 +2,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentSystem {
-    public static void Entre() {
+
+        private static final String ADD_STUDENT="1";
+        private static final String DELETE_STUDENT="2";
+        private static final String ALTER_STUDENT="3";
+        private static final String ENQUIRY_STUDENT="4";
+        private static final String EXIT="5";
+        private static final String RERVERSE="6";
+
+        public static void Entre() {
         ArrayList<stu>list=new ArrayList<>();
         Scanner sc=new Scanner(System.in);
         boolean flag=true;
@@ -16,23 +24,23 @@ public class StudentSystem {
             System.out.println("请输入你的选择：");
             String n=sc.next();
             switch (n){
-                case "1"->{
+                case ADD_STUDENT->{
                     Add(list);
                 }
-                case "2"->{
+                case DELETE_STUDENT->{
                     Delete(list);
                 }
-                case "3"->{
+                case ALTER_STUDENT->{
                     Alter(list);
                 }
-                case "4"->{
+                case ENQUIRY_STUDENT->{
                     Check(list);
                 }
-                case "5"->{
+                case EXIT->{
                     break loop;//loop是while循环别名，这里意为跳出loop循环
                     //System.exit(0);//也可以用这个语句，关闭虚拟机
                 }
-                case "6"->{
+                case RERVERSE->{
                     Show(list);
                 }
                 default -> {

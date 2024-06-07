@@ -7,6 +7,13 @@ public class user {
     public user() {
     }
 
+    public user(String userName, String password, String cardId, String phoneNumber) {
+        UserName = userName;
+        Password = password;
+        CardId = cardId;
+        PhoneNumber = phoneNumber;
+    }
+
     public String getUserName() {
         return UserName;
     }
