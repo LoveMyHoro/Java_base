@@ -9,5 +9,6 @@ public class test_手机号屏蔽 {
         String end=n.substring(7);
         String result=start+"****"+end;
         System.out.println(result);
+        System.out.println(n.charAt(0));
     }
 }
